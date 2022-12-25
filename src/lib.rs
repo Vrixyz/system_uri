@@ -23,32 +23,13 @@
 // https://github.
 // com/feross/webtorrent-desktop/blob/4bb2056bc9c1a421815b97d03ffed512575dfde0/src/main/handlers.js
 #![forbid(
-    exceeding_bitshifts,
+    arithmetic_overflow,
     mutable_transmutes,
     no_mangle_const_items,
     unknown_crate_types,
     warnings
 )]
-#![deny(
-    bad_style,
-    deprecated,
-    improper_ctypes,
-    missing_docs,
-    non_shorthand_field_patterns,
-    overflowing_literals,
-    plugin_as_library,
-    stable_features,
-    unconditional_recursion,
-    unknown_lints,
-    unsafe_code,
-    unused,
-    unused_allocation,
-    unused_attributes,
-    unused_comparisons,
-    unused_features,
-    unused_parens,
-    while_true
-)]
+#![deny(missing_docs, overflowing_literals, unsafe_code)]
 #![warn(
     trivial_casts,
     trivial_numeric_casts,
@@ -101,9 +82,10 @@ mod errors {
                 display("String error: {:?}", error)
                 from()
             }
+
             /// Utf-8 error.
             Utf8Error(error: Utf8Error) {
-                description(error.description())
+                description("utf8 error")
                 display("Utf-8 error: {}", error)
                 from()
             }

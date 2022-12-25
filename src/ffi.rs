@@ -20,6 +20,8 @@ use std::ffi::CStr;
 use std::os::raw::c_void;
 
 /// Open the given URI on this system.
+/// # Safety
+/// Parameters are unsafe, that makes the function unsafe.
 #[no_mangle]
 pub unsafe extern "C" fn open_uri(
     uri: *const c_char,
@@ -36,6 +38,8 @@ pub unsafe extern "C" fn open_uri(
 
 /// Install the given App definition for each scheme URI on the system.
 /// Schemes are a comma delimited list of schemes.
+/// # Safety
+/// Parameters are unsafe, that makes the function unsafe.
 #[no_mangle]
 pub unsafe extern "C" fn install(
     bundle: *const c_char,

@@ -7,12 +7,11 @@
 // specific language governing permissions and limitations relating to use of the SAFE Network
 // Software.
 
-#![allow(unsafe_code, trivial_numeric_casts)]
+#![allow(unsafe_code)]
 
 use crate::app::App;
 
 use crate::errors::Error;
-use libc;
 use std::process::Command;
 
 #[repr(C)]
@@ -49,7 +48,7 @@ fn convert_to_cfstring(content: &str) -> CFStringRef {
             kCFAllocatorDefault,
             content.as_ptr(),
             content.len() as CFIndex,
-            0x0800_0100 as CFStringEncoding,
+            0x0800_0100,
             false as u8,
             kCFAllocatorNull,
         )
@@ -60,6 +59,7 @@ fn convert_to_cfstring(content: &str) -> CFStringRef {
 pub fn open<S: Into<String>>(uri: S) -> Result<(), Error> {
     let output = Command::new("open").arg(uri.into()).output()?;
 
+    dbg!(&output);
     if output.status.success() {
         Ok(())
     } else {
